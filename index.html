@@ -93,31 +93,31 @@
           
                 
                 $('<div class="overall"></div>').css({'width':'460px', 'float':'left'}).appendTo('body').MPChart({
-                    chartType: 'line',
+                    chartType: 'bar',
                     data: overallRatioData,
                     highchartsOptions : {title: {text:"Purchase Complete by UTM Campaign"}}
                 });
 
                 $('<div class="first"></div>').css({'width':'460px', 'float':'left'}).appendTo('body').MPChart({
-                    chartType: 'line',
+                    chartType: 'bar',
                     data: firstChartData,
                     highchartsOptions : {title: {text:"Purchase Complete by UTM Source"}}
                 });
                 
                 $('<div class="second"></div>').css({'width':'460px', 'float':'right'}).appendTo('body').MPChart({
-                    chartType: 'line',
+                    chartType: 'bar',
                     data: secondChartData, 
                     highchartsOptions : {title: {text:"Purchase Complete by Browser"}}
                 });
                 
                 $('<div class="third"></div>').css({'width':'460px', 'float':'left'}).appendTo('body').MPChart({
-                    chartType: 'line',
+                    chartType: 'bar',
                     data: thirdChartData, 
                     highchartsOptions : {title: {text:"Purchase Complete by Device"}}
                 });
                 
                 $('<div class="fourth"></div>').css({'width':'460px', 'float':'right'}).appendTo('body').MPChart({
-                    chartType: 'line',
+                    chartType: 'bar',
                     data: fourthChartData, 
                     highchartsOptions : {title: {text:"Purchase Complete by Operating System"}}
                 });
