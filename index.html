@@ -48,7 +48,9 @@
             unit: 'week',
             limit: 100,
             //'where': '"Electronic Order" in string(properties["Type"])',
-        }).console.log(results.values())
+        });
+        
+        console.log(overall_ratio.values())
       
         var first_chart =  MP.api.segment('Purchase Complete', 'utm_source', {
             from: date_from,
