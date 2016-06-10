@@ -49,9 +49,7 @@
             limit: 100,
             //'where': '"Electronic Order" in string(properties["Type"])',
         });
-        
-        console.log(overall_ratio.values())
-      
+
         var first_chart =  MP.api.segment('Purchase Complete', 'utm_source', {
             from: date_from,
             to: date_to,
@@ -131,7 +129,7 @@
             }
             
             
-            drawGraph(overall_ratio.values, first_chart.values, second_chart.values, third_chart.values, fourth_chart.values);
+            drawGraph(overall_ratio.values(), first_chart.values(), second_chart.values(), third_chart.values(), fourth_chart.values());
             
         });
      };
