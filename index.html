@@ -47,7 +47,7 @@
             to: date_to,
             unit: 'week',
             limit: 100,
-            'where': '"Electronic Order" in string(properties["Type"])',
+            //'where': '"Electronic Order" in string(properties["Type"])',
         });
       
         var first_chart =  MP.api.segment('Purchase Complete', 'utm_source', {
@@ -55,7 +55,7 @@
             to: date_to,
             unit: 'week',
             limit: 100,
-            'where': '"Electronic Order" in string(properties["Type"])',
+            //'where': '"Electronic Order" in string(properties["Type"])',
         });
         
         
@@ -64,7 +64,7 @@
             to: date_to,
             unit: 'week',
             limit: 100,
-            'where': '"Electronic Order" in string(properties["Type"])',
+            //'where': '"Electronic Order" in string(properties["Type"])',
         });
        
         var third_chart =  MP.api.segment('Purchase Complete', '$device', {
@@ -72,7 +72,7 @@
             to: date_to,
             unit: 'week',
             limit: 100,
-            'where': '"Electronic Order" in string(properties["Type"])',
+            //'where': '"Electronic Order" in string(properties["Type"])',
         });
        
         
@@ -81,7 +81,7 @@
             to: date_to,
             unit: 'week',
             limit: 100,
-            'where': '"Electronic Order" in string(properties["Type"])',
+            //'where': '"Electronic Order" in string(properties["Type"])',
         });
        
         
