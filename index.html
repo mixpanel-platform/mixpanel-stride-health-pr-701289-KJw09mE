@@ -42,7 +42,7 @@
    
         /*  First Chart */
 
-       var overall_ratio = MP.api.segment('Purchase Complete', 'utm_campaign', {
+       var overall_ratio = MP.api.segment('Purchase Complete', 'properties["utm_campaign"]', {
             from: date_from,
             to: date_to,
             unit: 'week',
