@@ -47,7 +47,7 @@
             to: date_to,
             unit: 'week',
             limit: 100,
-            //'where': '"Electronic Order" in string(properties["Type"])',
+            'where': 'defined (properties["utm_campaign"])',
         });
 
         var first_chart =  MP.api.segment('Purchase Complete', 'utm_source', {
@@ -55,7 +55,7 @@
             to: date_to,
             unit: 'week',
             limit: 100,
-            //'where': '"Electronic Order" in string(properties["Type"])',
+            'where': 'defined (properties["utm_source"])',
         });
         
         
