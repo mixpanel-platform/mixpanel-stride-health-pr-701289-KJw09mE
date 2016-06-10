@@ -43,13 +43,12 @@
         /*  First Chart */
 
        var overall_ratio = MP.api.segment('Purchase Complete', 'utm_campaign', {
-            from: '2016-06-01',
-            to: '2016-06-10',
+            from: date_from,
+            to: date_to,
             unit: 'week',
             limit: 100,
             //'where': '"Electronic Order" in string(properties["Type"])',
-        });
-        console.log(overall_ratio.values)
+        }).console.log(results.values)
       
         var first_chart =  MP.api.segment('Purchase Complete', 'utm_source', {
             from: date_from,
