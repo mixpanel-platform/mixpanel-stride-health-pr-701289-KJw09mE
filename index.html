@@ -1,15 +1,150 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/css/reset.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.css">
     <script src="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.js"></script>
   </head>
   <body class="mixpanel-platform-body">
-    <h1>Hello, World!</h1>
+    <div class="mixpanel-platform-section">
+      <div id="eventSelect" style="float: left;"></div>
+      <div id="by" class="mixpanel-platform-label" style="margin-left: 10px; display: none;">by</div>
+      <div id="propSelect" style="float: left;"></div>
+      <div id="dateSelect" style="float: right;"></div>
+      <div style="clear: both;"></div>
+      <div id="graph"></div>
+    </div>
+    <div id="table"></div>
+
+     <script>
+    // Setting up shop
+    //MP.api.setCredentials('c8e2af5a88f5b4aa174d946ba7866371', '53842f456486db76e0ef4986cc105416');
+
+    </script>
+
     <script>
-      // Run queries and display results here
+    var dateSelect  = $('#dateSelect').MPDatepicker();
+    var runQuery = function() {
+    /*  First Chart */
+  
+        var date_from;
+        var date_to;
+        var dateRange = dateSelect.MPDatepicker('value');
+        
+        if(typeof dateRange == "undefined") {
+          var date_from = moment().subtract(1, 'month');
+          var date_to = moment();
+        } else {
+          var date_from = dateRange.from.toISOString().substring(0, 10);
+          var date_to = dateRange.to.toISOString().substring(0, 10);
+        }
+
+   
+        /*  First Chart */
+
+       var overall_ratio = MP.api.segment('Purchase Complete', 'utm_campaign', {
+            from: date_from,
+            to: date_to,
+            unit: 'week',
+            limit: 100,
+            'where': '"Electronic Order" in string(properties["Type"])',
+        });
+      
+        var first_chart =  MP.api.segment('Purchase Complete', 'utm_source', {
+            from: date_from,
+            to: date_to,
+            unit: 'week',
+            limit: 100,
+            'where': '"Electronic Order" in string(properties["Type"])',
+        });
+        
+        
+        var second_chart =  MP.api.segment('Purchase Complete', '$browser', {
+            from: date_from,
+            to: date_to,
+            unit: 'week',
+            limit: 100,
+            'where': '"Electronic Order" in string(properties["Type"])',
+        });
+       
+        var third_chart =  MP.api.segment('Purchase Complete', '$device', {
+            from: date_from,
+            to: date_to,
+            unit: 'week',
+            limit: 100,
+            'where': '"Electronic Order" in string(properties["Type"])',
+        });
+       
+        
+        var fourth_chart =  MP.api.segment('Purchase Complete', '$os', {
+            from: date_from,
+            to: date_to,
+            unit: 'week',
+            limit: 100,
+            'where': '"Electronic Order" in string(properties["Type"])',
+        });
+       
+        
+        $.when(overall_ratio, first_chart, second_chart, third_chart, fourth_chart).done(function(overall_ratio, first_chart, second_chart, third_chart, fourth_chart) {
+            
+           
+            
+            var drawGraph = function(overallRatioData, firstChartData, secondChartData, thirdChartData, fourthChartData){
+          
+                
+                $('<div class="overall"></div>').css({'width':'460px', 'float':'left'}).appendTo('body').MPChart({
+                    chartType: 'line',
+                    data: overallRatioData,
+                    highchartsOptions : {title: {text:"Purchase Complete by UTM Campaign"}}
+                });
+
+                $('<div class="first"></div>').css({'width':'460px', 'float':'left'}).appendTo('body').MPChart({
+                    chartType: 'line',
+                    data: firstChartData,
+                    highchartsOptions : {title: {text:"Purchase Complete by UTM Source"}}
+                });
+                
+                $('<div class="second"></div>').css({'width':'460px', 'float':'right'}).appendTo('body').MPChart({
+                    chartType: 'line',
+                    data: secondChartData, 
+                    highchartsOptions : {title: {text:"Purchase Complete by Browser"}}
+                });
+                
+                $('<div class="third"></div>').css({'width':'460px', 'float':'left'}).appendTo('body').MPChart({
+                    chartType: 'line',
+                    data: thirdChartData, 
+                    highchartsOptions : {title: {text:"Purchase Complete by Device"}}
+                });
+                
+                $('<div class="fourth"></div>').css({'width':'460px', 'float':'right'}).appendTo('body').MPChart({
+                    chartType: 'line',
+                    data: fourthChartData, 
+                    highchartsOptions : {title: {text:"Purchase Complete by Operating System"}}
+                });
+                //$('.mixpanel-platform-multi_selector').css({'clear':'both'});
+                //$('.title').css({'width':'55px'});
+                $('.color_toggle_dropdown').each(function(){this.style.setProperty('width', '170px', 'important')});
+                $('.title').each(function(){this.style.setProperty('width', '105px', 'important')});
+                
+            }
+            
+            
+            drawGraph(overall_ratio['data']['values'], first_chart['data']['values'], second_chart['data']['values'], third_chart['data']['values'], fourth_chart['data']['values']);
+            
+        });
+     };
+
+        dateSelect.on('change', function(dateRange){
+            $(".overall").empty();
+            $(".first").empty();
+            $(".second").empty();
+            $(".third").empty();
+            $(".fourth").empty();
+            runQuery();
+      });
+      
+      runQuery();
+
     </script>
   </body>
 </html>
